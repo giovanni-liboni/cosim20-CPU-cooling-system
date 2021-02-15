@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Jul 04 10:20:31 CEST 2020
+org.eclipse.gemoc.execution.commons.dostepparameters-0.9.pom>=
+org.eclipse.gemoc.execution.commons.dostepparameters-0.9.jar>=

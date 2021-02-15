@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.gemoc.example.moccml.tfsm:TimedSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.gemoc.example.moccml.tfsm="http://www.gemoc.org/example/moccml/tfsm" name="CPUprotection">
+  <tfsms name="overHeatProtection" initialState="//@tfsms.0/@ownedStates.2">
+    <ownedStates name="normalTemp" outgoingTransitions="//@tfsms.0/@ownedTransitions.1 //@tfsms.0/@ownedTransitions.3" incomingTransitions="//@tfsms.0/@ownedTransitions.0 //@tfsms.0/@ownedTransitions.2 //@tfsms.0/@ownedTransitions.3"/>
+    <ownedStates name="tooHot" outgoingTransitions="//@tfsms.0/@ownedTransitions.2 //@tfsms.0/@ownedTransitions.4" incomingTransitions="//@tfsms.0/@ownedTransitions.1 //@tfsms.0/@ownedTransitions.4"/>
+    <ownedStates name="init" outgoingTransitions="//@tfsms.0/@ownedTransitions.0"/>
+    <localClock name="seconds"/>
+    <ownedTransitions name="initToNormal" source="//@tfsms.0/@ownedStates.2" target="//@tfsms.0/@ownedStates.0"/>
+    <ownedTransitions name="normalToTooHot" source="//@tfsms.0/@ownedStates.0" target="//@tfsms.0/@ownedStates.1" generatedEvents="//@globalEvents.0">
+      <ownedGuard xsi:type="org.eclipse.gemoc.example.moccml.tfsm:EvaluateGuard" name="checkTempTooHot">
+        <condition xsi:type="org.eclipse.gemoc.example.moccml.tfsm:IntegerComparisonExpression" operator=">=" operand2="//@ownedVars.1" operand1="//@ownedVars.0"/>
+      </ownedGuard>
+    </ownedTransitions>
+    <ownedTransitions name="tooHotToNormal" source="//@tfsms.0/@ownedStates.1" target="//@tfsms.0/@ownedStates.0" generatedEvents="//@globalEvents.0">
+      <ownedGuard xsi:type="org.eclipse.gemoc.example.moccml.tfsm:EvaluateGuard" name="checkTempTooHot">
+        <condition xsi:type="org.eclipse.gemoc.example.moccml.tfsm:IntegerComparisonExpression" operator="&lt;=" operand2="//@ownedVars.2" operand1="//@ownedVars.0"/>
+      </ownedGuard>
+    </ownedTransitions>
+    <ownedTransitions name="selfLoopNormalTemp" source="//@tfsms.0/@ownedStates.0" target="//@tfsms.0/@ownedStates.0">
+      <ownedGuard xsi:type="org.eclipse.gemoc.example.moccml.tfsm:TemporalGuard" name="after3s" onClock="//@tfsms.0/@localClock" afterDuration="3"/>
+    </ownedTransitions>
+    <ownedTransitions name="selfLoopTooHot" source="//@tfsms.0/@ownedStates.1" target="//@tfsms.0/@ownedStates.1">
+      <ownedGuard xsi:type="org.eclipse.gemoc.example.moccml.tfsm:TemporalGuard" name="after5s" onClock="//@tfsms.0/@localClock" afterDuration="5"/>
+    </ownedTransitions>
+  </tfsms>
+  <globalEvents name="switchCPUState" sollicitingTransitions="//@tfsms.0/@ownedTransitions.1 //@tfsms.0/@ownedTransitions.2"/>
+  <ownedVars xsi:type="org.eclipse.gemoc.example.moccml.tfsm:IntegerVariable" name="cpuTemperature" initialValue="25"/>
+  <ownedVars xsi:type="org.eclipse.gemoc.example.moccml.tfsm:IntegerVariable" name="dangerTemperature" initialValue="85"/>
+  <ownedVars xsi:type="org.eclipse.gemoc.example.moccml.tfsm:IntegerVariable" name="lowThreashold" initialValue="75"/>
+</org.eclipse.gemoc.example.moccml.tfsm:TimedSystem>
